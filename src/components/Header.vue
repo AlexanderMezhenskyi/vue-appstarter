@@ -4,7 +4,7 @@
       <div>
         <a href="#" class="brand-name">AppStarter</a>
       </div>
-      <nav>
+      <nav ref="nav">
         <ul>
           <li><a href="#">Features</a></li>
           <li><a href="#">Video Tour</a></li>
@@ -13,6 +13,9 @@
         </ul>
         <button type="button" class="get-free">Get it free</button>
       </nav>
+      <button type="button" class="mobile-menu" @click="toogleMenu">
+        <i class="mdi mdi-menu"></i>
+      </button>
     </div>
   </header>
 </template>
@@ -20,6 +23,18 @@
 <script>
 export default {
   name: 'Header',
+  methods: {
+    toogleMenu() {
+      this.$refs.nav.classList.toggle('active');
+    },
+  },
+  mounted() {
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 767) {
+        this.$refs.nav.classList.remove('active');
+      }
+    });
+  },
 };
 </script>
 
@@ -39,6 +54,19 @@ export default {
   nav {
     display: flex;
     align-items: center;
+    @media screen and (max-width: 767px) {
+      display: none;
+    }
+    &.active {
+      display: block;
+      position: fixed;
+      top: 50px;
+      left: 0;
+      width: 100%;
+      background: #5A81F0;
+      text-align: center;
+      padding-bottom: 25px;
+    }
   }
   a {
     color: #fff;
@@ -51,10 +79,19 @@ export default {
   }
   ul {
     list-style-type: none;
+    @media screen and (max-width: 767px) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0;
+    }
   }
   li {
     display: inline-block;
     padding: 0 16px;
+    @media screen and (max-width: 767px) {
+      padding: 5px 16px;
+    }
     a {
       font-size: 15px;
       line-height: 20px;
@@ -72,5 +109,21 @@ export default {
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 1px;
+    @media screen and (max-width: 767px) {
+      margin-left: 0;
+    }
+  }
+  .mobile-menu {
+    display: none;
+    width: 30px;
+    height: 30px;
+    color: #fff;
+    background: transparent;
+    @media screen and (max-width: 767px) {
+      display: block;
+    }
+    i {
+      font-size: 150%;
+    }
   }
 </style>

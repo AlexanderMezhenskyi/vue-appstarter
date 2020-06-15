@@ -35,11 +35,17 @@ export default {
   footer {
     padding: 14px 0 32px;
     flex: 0 0 auto;
+    @media screen and (max-width: 490px) {
+      padding: 14px 0;
+    }
   }
   .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    @media screen and (max-width: 490px) {
+      flex-direction: column;
+    }
   }
   .brand-name {
     font-weight: 800;
@@ -54,6 +60,9 @@ export default {
     color: #999EA8;
     text-align: center;
     padding-top: 20px;
+    @media screen and (max-width: 490px) {
+      padding-bottom: 20px;
+    }
     i {
       color: #FF4876;
       font-size: 140%;

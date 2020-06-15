@@ -73,11 +73,25 @@ export default {
 
 <style scoped lang="scss">
   .timer-item {
+    max-width: 490px;
     display: flex;
     align-items: center;
     padding-bottom: 39px;
+    margin: 0 auto;
+    @media screen and (max-width: 767px) {
+      justify-content: space-between;
+    }
+    @media screen and (max-width: 399px) {
+      flex-wrap: wrap;
+      padding: 10px 0 15px;
+      border-bottom: 1px solid #E7E8EA;
+    }
     &:last-of-type {
       padding-bottom: 0;
+      @media screen and (max-width: 399px) {
+        padding: 10px 0 0;
+        border-bottom: none;
+      }
     }
     .name {
       width: 170px;
@@ -89,6 +103,14 @@ export default {
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
+      @media screen and (max-width: 767px) {
+        width: 150px;
+        font-size: 18px;
+        margin: 0;
+      }
+      @media screen and (max-width: 399px) {
+        width: 100%;
+      }
     }
     .time {
       width: 119px;
@@ -99,10 +121,16 @@ export default {
       background: #E7E8EA;
       border: 1px solid #E7E8EA;
       border-radius: 6px;
-      padding: 13px 24px;
+      padding: 13px 0;
       margin-right: 41px;
       text-align: center;
       white-space: nowrap;
+      @media screen and (max-width: 767px) {
+        width: 90px;
+        height: 30px;
+        padding: 3px 0;
+        margin: 0;
+      }
       &.no-running {
         background: rgba(255, 72, 118, 0.15);
         border: 1px solid rgba(255, 72, 118, 0.15);
@@ -114,8 +142,16 @@ export default {
       color: #fff;
       box-shadow: 0 6px 12px rgba(40, 43, 49, 0.08);
       margin-right: 20px;
+      @media screen and (max-width: 767px) {
+        width: 30px;
+        height: 30px;
+        margin: 0;
+      }
       i {
         font-size: 150%;
+        @media screen and (max-width: 767px) {
+          font-size: 100%;
+        }
       }
     }
     .btn-play,

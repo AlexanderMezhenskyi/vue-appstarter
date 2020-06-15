@@ -1,9 +1,11 @@
 <template>
   <div class="timers-container">
     <div class="create-timer-container">
-      <input type="text" placeholder="Timer Name"
-             v-model.trim="newTimer" @keypress.enter="addTimer">
-      <button type="button" class="create-timer" @click="addTimer">Create Timer</button>
+      <div class="create-timer-wrap">
+        <input type="text" placeholder="Timer Name"
+               v-model.trim="newTimer" @keypress.enter="addTimer">
+        <button type="button" class="create-timer" @click="addTimer">Create Timer</button>
+      </div>
     </div>
     <div class="timers-list">
       <template v-if="timers.length" >
@@ -99,6 +101,9 @@ export default {
     box-shadow: 0 1px 3px rgba(32, 33, 39, 0.12);
     border-radius: 12px;
     padding: 40px 0;
+    @media screen and (max-width: 767px) {
+      padding: 40px 15px;
+    }
   }
   input {
     width: 305px;
@@ -108,6 +113,10 @@ export default {
     padding: 14px 20px;
     margin-right: 20px;
     outline: 0 transparent;
+    @media screen and (max-width: 767px) {
+      width: 100%;
+      margin: 0 0 15px;
+    }
     &:focus {
       border-color: #469AF4;
       &::-webkit-input-placeholder {
@@ -165,12 +174,22 @@ export default {
     box-shadow: 0 6px 12px rgba(40, 43, 49, 0.08);
     background: linear-gradient(163.14deg, #FF8E64 0%, #FFE641 100%);
     border-radius: 6px;
+    @media screen and (max-width: 767px) {
+      width: 100%;
+    }
     &-container {
-      padding: 0 140px 27px;
+      padding: 0 0 27px;
       border-bottom: 1px solid #E7E8EA;
+    }
+    &-wrap {
+      max-width: 490px;
+      margin: 0 auto;
     }
   }
   .timers-list {
-    padding: 30px 140px 0;
+    padding: 30px 0 0;
+    @media screen and (max-width: 399px) {
+      padding: 0;
+    }
   }
 </style>

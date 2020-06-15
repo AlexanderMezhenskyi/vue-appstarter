@@ -55,15 +55,58 @@ export default {
     max-height: 720px;
     padding-top: 137px;
     background: #5A81F0 url('../assets/images/header-bg.jpg') no-repeat;
+    background-size: cover;
+    @media screen and (max-width: 991px) {
+      padding-bottom: 70px;
+    }
+    @media screen and (max-width: 767px) {
+      padding-top: 100px;
+    }
     .container {
       display: flex;
       justify-content: space-between;
+      @media screen and (max-width: 767px) {
+        justify-content: flex-start;
+        flex-direction: column;
+      }
     }
     .left-column {
       padding-top: 93px;
+      @media screen and (max-width: 991px) {
+        padding-top: 30px;
+      }
+      @media screen and (max-width: 767px) {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+      @media screen and (max-width: 399px) {
+        flex-direction: column;
+        text-align: center;
+      }
+      div:first-child {
+        @media screen and (max-width: 399px) {
+          width: 100%;
+        }
+      }
     }
     .right-column {
       padding-right: 44px;
+      @media screen and (max-width: 991px) {
+        padding-right: 0;
+      }
+      @media screen and (max-width: 767px) {
+        padding-top: 45px;
+        text-align: center;
+      }
+      img {
+        @media screen and (max-width: 991px) {
+          max-height: 420px;
+        }
+        @media screen and (max-width: 399px) {
+          max-height: 370px;
+        }
+      }
     }
     h1 {
       color: #fff;
@@ -73,6 +116,12 @@ export default {
       line-height: 50px;
       letter-spacing: 0.7px;
       margin: 12px 0 36px;
+      @media screen and (max-width: 767px) {
+        font-size: 32px;
+        line-height: 32px;
+        letter-spacing: 0;
+        margin-top: 0;
+      }
       strong {
         font-weight: 800;
         letter-spacing: 1px;
@@ -81,6 +130,13 @@ export default {
     .btns-wrap {
       display: flex;
       align-items: center;
+      @media screen and (max-width: 480px) {
+        width: 170px;
+        flex-wrap: wrap;
+      }
+      @media screen and (max-width: 399px) {
+        margin: 0 auto;
+      }
       a {
         font-weight: bold;
         font-size: 17px;
@@ -91,12 +147,20 @@ export default {
         border-radius: 6px;
         text-decoration: none;
         box-shadow: 0 6px 12px rgba(40, 43, 49, 0.08);
+        @media screen and (max-width: 480px) {
+          display: block;
+          width: 100%;
+        }
       }
     }
     .download {
       color: #fff;
       margin-right: 20px;
       background: linear-gradient(163.33deg, #FF8E64 0%, #FFE641 100%);
+      @media screen and (max-width: 480px) {
+        margin-right: 0;
+        margin-bottom: 10px;
+      }
     }
     .watch {
       color: #282B31;
@@ -106,9 +170,21 @@ export default {
   .why-we-use {
     padding: 220px 0 112px;
     background: #F2F2F2;
+    @media screen and (max-width: 991px) {
+      padding-top: 50px;
+    }
+    @media screen and (max-width: 767px) {
+      padding: 100px 0;
+    }
+    @media screen and (max-width: 480px) {
+      padding-top: 220px;
+    }
     &-content {
       width: 770px;
       margin: 0 auto;
+      @media screen and (max-width: 991px) {
+        width: 100%;
+      }
     }
 
     h2 {
