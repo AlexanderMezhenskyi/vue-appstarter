@@ -1,47 +1,95 @@
 <template>
   <div class="timers-container">
     <div class="create-timer-container">
-      <input type="text" placeholder="Timer Name">
-      <button type="button" class="create-timer">Create Timer</button>
+      <input type="text" placeholder="Timer Name"
+             v-model.trim="newTimer" @keypress.enter="addTimer">
+      <button type="button" class="create-timer" @click="addTimer">Create Timer</button>
     </div>
     <div class="timers-list">
-      <div class="timer-item">
-        <span class="name">Timer name 1</span>
-        <span class="time">00:00:35</span>
-        <button class="btn-pause">
-          <i class="mdi mdi-pause"></i>
-        </button>
-        <button class="btn-delete">
-          <i class="mdi mdi-delete"></i>
-        </button>
-      </div>
-      <div class="timer-item">
-        <span class="name">Timer name 2</span>
-        <span class="time">00:00:47</span>
-        <button class="btn-pause">
-          <i class="mdi mdi-pause"></i>
-        </button>
-        <button class="btn-delete">
-          <i class="mdi mdi-delete"></i>
-        </button>
-      </div>
-      <div class="timer-item">
-        <span class="name">Timer name 3</span>
-        <span class="time">00:01:49</span>
-        <button class="btn-play">
-          <i class="mdi mdi-play"></i>
-        </button>
-        <button class="btn-delete">
-          <i class="mdi mdi-delete"></i>
-        </button>
-      </div>
+      <template v-if="timers.length" >
+        <TimerItem v-for="timer in timers" :key="'timer-' + timer.id" :timer="timer"
+                   @onTimerDelete="deleteTimer"/>
+      </template>
+      <template v-else>
+        <div>The timer list is empty. You could add a first timer.</div>
+      </template>
     </div>
   </div>
 </template>
 
 <script>
+import TimerItem from './TimerItem.vue';
+
+const timersStorage = {
+  uid: 0,
+  getTimers() {
+    const timers = JSON.parse(localStorage.getItem('appStarterTimers') || '[]');
+
+    timers.forEach((timer, index) => {
+      // eslint-disable-next-line no-param-reassign
+      timer.id = index;
+    });
+
+    this.uid = timers.length;
+
+    return timers;
+  },
+  saveTimers(timers) {
+    localStorage.setItem('appStarterTimers', JSON.stringify(timers));
+  },
+};
+
 export default {
   name: 'Timers',
+  components: {
+    TimerItem,
+  },
+  data() {
+    return {
+      timers: timersStorage.getTimers(),
+      newTimer: '',
+    };
+  },
+  methods: {
+    addTimer(event) {
+      let value = this.newTimer;
+
+      if (!value && event.type !== 'click') {
+        return;
+      }
+
+      if (!value && event.type === 'click') {
+        const date = new Date();
+
+        value = `Timer ${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+      }
+
+      this.timers.unshift({
+        // eslint-disable-next-line no-plusplus
+        id: timersStorage.uid++,
+        name: value,
+        time: '0:0:0',
+        isRunning: true,
+        startTime: new Date().getTime(),
+        pauseStartTime: '',
+        pauseTime: 0,
+      });
+
+      this.newTimer = '';
+      timersStorage.saveTimers(this.timers);
+    },
+    deleteTimer(timerItem) {
+      this.timers.splice(this.timers.indexOf(timerItem), 1);
+    },
+  },
+  watch: {
+    timers: {
+      handler(timers) {
+        timersStorage.saveTimers(timers);
+      },
+      deep: true,
+    },
+  },
 };
 </script>
 
@@ -124,54 +172,5 @@ export default {
   }
   .timers-list {
     padding: 30px 140px 0;
-  }
-  .timer-item {
-    display: flex;
-    align-items: center;
-    padding-bottom: 39px;
-    &:last-of-type {
-      padding-bottom: 0;
-    }
-    .name {
-      font-weight: 800;
-      font-size: 20px;
-      line-height: 30px;
-      color: #5586F2;
-      margin-right: 58px;
-    }
-    .time {
-      font-size: 17px;
-      line-height: 23px;
-      color: #676C75;
-      background: #E7E8EA;
-      border: 1px solid #E7E8EA;
-      border-radius: 6px;
-      padding: 13px 24px;
-      margin-right: 41px;
-    }
-    button {
-      width: 50px;
-      height: 50px;
-      color: #fff;
-      box-shadow: 0 6px 12px rgba(40, 43, 49, 0.08);
-      margin-right: 20px;
-      i {
-        font-size: 150%;
-      }
-    }
-    .btn-play,
-    .btn-pause {
-      border-radius: 50%;
-    }
-    .btn-play {
-      background: linear-gradient(135deg, #009FC5 0%, #3CECB0 100%);
-    }
-    .btn-pause {
-      background: linear-gradient(135deg, #7956EC 0%, #2FB9F8 100%);
-    }
-    .btn-delete {
-      background: linear-gradient(135deg, #F23673 0%, #FCA069 100%);
-      border-radius: 6px;
-    }
   }
 </style>
