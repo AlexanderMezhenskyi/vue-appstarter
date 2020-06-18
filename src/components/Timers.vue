@@ -13,7 +13,7 @@
                    @onTimerDelete="deleteTimer"/>
       </template>
       <template v-else>
-        <div>The timer list is empty. You could add a first timer.</div>
+        <div class="list-empty">The timer list is empty. You could add a first timer.</div>
       </template>
     </div>
   </div>
@@ -191,5 +191,8 @@ export default {
     @media screen and (max-width: 399px) {
       padding: 0;
     }
+  }
+  .list-empty {
+    text-align: center;
   }
 </style>
